@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import FormUI from './FormUI'
 import { Button, CardFooter } from "@material-tailwind/react";
 
-export default function SlideOut({ closeSlideout, openSlideout }) {
+export default function SlideOut({ saveHandler, formData, handleChange, closeSlideout, openSlideout }) {
   return (
     <Transition.Root show={openSlideout} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeSlideout}>
@@ -64,12 +64,12 @@ export default function SlideOut({ closeSlideout, openSlideout }) {
                       </div>
                     </CardFooter>
 
-                    <div className="relative mt-6 flex-1 px-4 sm:px-6"><FormUI /></div>
+                    <div className="relative mt-6 flex-1 px-4 sm:px-6"><FormUI formData={formData} handleChange={handleChange} /></div>
 
 
 
                     <CardFooter className="bg-white sticky bottom-0 flex-row-reverse flex items-center justify-between border-t border-blue-gray-50 p-4">
-                      <Button className='bg-blue-500 text-white rounded-md' variant="outlined" size="sm">
+                      <Button onClick={saveHandler} className='bg-blue-500 text-white rounded-md' variant="outlined" size="sm">
                         Save
                       </Button>
                     </CardFooter>

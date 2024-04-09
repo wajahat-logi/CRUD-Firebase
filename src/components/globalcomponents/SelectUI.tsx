@@ -1,10 +1,8 @@
 import { Option, Select } from '@material-tailwind/react';
-import React from 'react';
-import TextUI, { AddTextUI } from './TextUI';
+import { AddTextUI } from './TextUI';
 
 
-
-const SelectUI = ({ label='', ...rest }) => {
+const SelectUI = ({ label = '', options, ...rest }) => {
     return (
         <>
             <AddTextUI label={label} />
@@ -14,18 +12,11 @@ const SelectUI = ({ label='', ...rest }) => {
                     className: "hidden",
                 }}
                 className="border-t-blue-gray-200 h-10 aria-[expanded=true]:border-t-primary"
+                {...rest}
             >
-                <Option>1</Option>
-                <Option>2</Option>
-                <Option>3</Option>
-                <Option>4</Option>
-                <Option>5</Option>
-                <Option>6</Option>
-                <Option>7</Option>
-                <Option>8</Option>
-                <Option>9</Option>
-                <Option>10</Option>
-                <Option>11</Option>
+                {options.map(e => {
+                    return <Option value={e}>{e}</Option>
+                })}
             </Select>
         </>
     );

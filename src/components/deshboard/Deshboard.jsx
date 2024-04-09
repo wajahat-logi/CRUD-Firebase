@@ -1,53 +1,27 @@
 "use client";
-import React, { useState } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useParams } from "next/navigation";
-import { useContact } from "./hook/useContact";
+import React, { useState } from "react";
 import { useAuth } from "../../../firebase/auth";
-import View from "./View";
-import Model from "./Model";
-import Table from "./Table";
 import GridUI from "./GridUI";
-import UserForm, { GenericForm } from "./UserForm";
+import { useContact } from "./hook/useContact";
 import SlideoutUI from "./SlideoutUI";
+import { GRID_KEYS } from "../utils/constants";
 import GridUI2 from "./GridUI2";
-// import NavbarUI from "./NavbarUI";
+import GridUI3 from "./GridUI3";
 
-const data = {
-  sn: 0,
-  dateReceived: '',
-  dueDateByKAM: '',
-  projectLevel: '',
-  tat: '',
-  projectLWC: 0,
-  status: '',
-  customer: '',
-  region: '',
-  kamOwner: '',
-  sector: '',
-  pstAssign: '',
-  requirement: '',
-  psrUpdates: 0,
-  proposedSolution: 0,
-  srdiother: 0,
-  submissionTo: '',
-  additionR: 0,
-};
 
 const Deshboard = () => {
   const params = useParams();
   const { authUser } = useAuth();
-
   const { initialValues, schema, handleSubmit, handleDelete, allMessages } = useContact();
 
-  const [formData, setFormData] = useState(data);
+  const [formData, setFormData] = useState(GRID_KEYS);
   const [gridData, setGridData] = useState([]);
   const [gs, setGs] = useState({
     openSlideout: false
   })
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (name, value) => {
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -65,17 +39,18 @@ const Deshboard = () => {
     setGsHandler('openSlideout', true);
   }
 
+  const saveHandler = () => {
+    setGridData(p => ([...p, formData]))
+    setGsHandler('openSlideout', false);
+    setFormData(GRID_KEYS);
+  }
 
   return (
-    <div className="flex-col container mx-auto flex items-center justify-between text-blue-gray-900 ">
-      <GridUI addMemberHandler={addMemberHandler} gridData={gridData} handleDelete={handleDelete} />
-      <SlideoutUI formData={formData} handleChange={handleChange} openSlideout={gs.openSlideout} closeSlideout={() => setGsHandler('openSlideout', false)} />
-      {/* 
-      <Model />
-      <View messages={allMessages} /> */}
-      {/* <GridUI2 /> */}
-      {/* <Table /> */}
-      {/* <View messages={allMessages} /> */}
+    <div className="flex-col mb-8 container mx-auto flex items-center justify-between text-blue-gray-900 ">
+      <SlideoutUI saveHandler={saveHandler} formData={formData} handleChange={handleChange} openSlideout={gs.openSlideout} closeSlideout={() => setGsHandler('openSlideout', false)} />
+      {/* <GridUI addMemberHandler={addMemberHandler} gridData={gridData} handleDelete={handleDelete} /> */}
+      {/* <GridUI2 addMemberHandler={addMemberHandler} gridData={gridData} handleDelete={handleDelete} /> */}
+      <GridUI3 addMemberHandler={addMemberHandler} gridData={gridData} handleDelete={handleDelete}  />
     </div>
   );
 };

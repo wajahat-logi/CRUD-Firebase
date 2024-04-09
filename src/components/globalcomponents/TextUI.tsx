@@ -1,12 +1,12 @@
 import { Typography } from '@material-tailwind/react';
 import React from 'react';
 
-const TextUI = ({ label = '' }) => {
+const TextUI = ({ label = '', className="mb-2 font-medium" }) => {
     return (
         <Typography
             variant="small"
             color="blue-gray"
-            className="mb-2 font-medium"
+            className={className}
         >
             {label}
         </Typography>
