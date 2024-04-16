@@ -1,11 +1,7 @@
-import Login from "@/components/login/Login";
-import Registration from "@/components/register/Registration";
+import Login from "../components/login/Login"
 
 export default function Home() {
   return (
-    <>
-      {/* <Registration /> */}
       <Login />
-    </>
   );
 }

@@ -1,10 +1,11 @@
-import "./globals.css";
-import "react-toastify/dist/ReactToastify.css";
+"use client";
+
+import NavbarUI from "../components/welcome/NavbarUI";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
-import Navbar from "@/components/welcome/Navbar";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthUserProvider } from "../../firebase/auth";
-// import { ThemeProvider } from "@material-tailwind/react";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +18,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <ThemeProvider> */}
           <AuthUserProvider>
             <ToastContainer />
-            <Navbar />
+            <NavbarUI />
             {children}
           </AuthUserProvider>
-        {/* </ThemeProvider> */}
       </body>
     </html>
   );

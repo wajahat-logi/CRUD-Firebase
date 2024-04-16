@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import {
   createUserWithEmailAndPassword,
@@ -6,11 +8,11 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
-import { useToastMessages } from "@/components/message/useToastMessages";
 import { registerSchema } from "../schema/registerSchema";
 
 import { auth } from "../../../../firebase/firebase";
 import { useAuth } from "../../../../firebase/auth";
+import { useToastMessages } from "../../message/useToastMessages";
 
 const provider = new GoogleAuthProvider();
 

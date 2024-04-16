@@ -1,4 +1,3 @@
-import { useToastMessages } from "@/components/message/useToastMessages";
 import { useRouter } from "next/navigation";
 import { loginSchema } from "../schema/loginSchema";
 
@@ -9,6 +8,7 @@ import {
 } from "firebase/auth";
 
 import { auth } from "../../../../firebase/firebase";
+import { useToastMessages } from "../../message/useToastMessages";
 
 const provider = new GoogleAuthProvider();
 

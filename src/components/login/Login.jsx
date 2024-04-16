@@ -1,11 +1,12 @@
 "use client";
+
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../firebase/auth";
 import Loading from "../loader/Loading";
-import { useLogin } from "./hook/useLogin";
 import h_screen from "../utils/constants";
+import { useLogin } from "./hook/useLogin";
 
 const LoginUI = () => {
 

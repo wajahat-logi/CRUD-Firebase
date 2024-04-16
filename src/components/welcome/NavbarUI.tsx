@@ -1,3 +1,5 @@
+"use client";
+
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
   Button,
@@ -14,22 +16,18 @@ interface NavItemPropsType {
   label: string;
 }
 
-function NavItem({ label }: NavItemPropsType) {
+function NavItem({ label, signOut=null }) {
   return (
-    <a href="#">
-      <Typography as="li" color="blue-gray" className="p-1 font-medium">
+      <Typography onClick={signOut} as="li" className="bg-gray-500 p-1 font-medium">
         {label}
       </Typography>
-    </a>
   );
 }
 
-function NavList() {
+function NavList({ signOut }) {
   return (
-    <ul className="mb-4 mt-2 flex flex-col gap-3 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-8">
-      <NavItem label="About Us" />
-      <NavItem label="Pricing" />
-      <NavItem label="Contact Us" />
+    <ul className="flex flex-col gap-3 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-8">
+      <NavItem signOut={signOut} label="Logout" />
     </ul>
   );
 }
@@ -73,10 +71,7 @@ export function NavbarUI() {
         {authUser && (
 
           <Button
-            onClick={() => {
-              signOut();
-              // Info("Logged Out !")
-            }} color="gray" className="hidden lg:inline-block">
+            onClick={signOut} color="gray" className="hidden lg:inline-block">
             Logout
           </Button>
         )}
@@ -97,11 +92,9 @@ export function NavbarUI() {
       </div>
       <Collapse open={open}>
         <div className="mt-2 rounded-xl bg-white py-2">
-          <NavList />
-          <Button className="mb-2" fullWidth>
-            Logout
-          </Button>
+          <NavList signOut={signOut}/>
         </div>
+  
       </Collapse>
     </Navbar>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import {
@@ -8,15 +10,16 @@ import {
   deleteDoc,
   updateDoc,
   doc,
+  setDoc,
   getDocs,
   getDoc,
 } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../../../firebase/auth";
 import { contactSchema } from "../schema/contactSchema";
-import { useToastMessages } from "@/components/message/useToastMessages";
 import { db } from "../../../../firebase/firebase";
 import { dataarray } from "./dummy";
+import { useToastMessages } from "../../message/useToastMessages";
 
 export const useContact = () => {
   const params = useParams();
@@ -87,12 +90,12 @@ export const useContact = () => {
     }
   };
 
-  console.log('allMessages22',allMessages)
+  console.log('allMessages22', allMessages)
 
   const SetData = (data) => {
     try {
-      
-      setMessages(p => ( [...p, data] )); // obtained
+
+      setMessages(p => ([...p, data])); // obtained
     } catch (error) {
       console.error(error);
     }
@@ -123,8 +126,29 @@ export const useContact = () => {
     resetForm();
   };
 
-  const getGGG = ()=>{
-    return allMessages;
+
+  const saveGridData = async (grid) => {
+    try {
+      const collectionRef = collection(db, "Records");
+      const docRef = doc(collectionRef, "documentId"); // Replace "documentId" with the desired document ID
+      await setDoc(docRef, { grid });
+      Success("Successfully Saved Records");
+    } catch (e) {
+      console.log(e);
+      Warn("Failed to Save Records");
+    }
+  }
+
+  const getGridData = async () => {
+    const q = query(collection(db, "Records"));
+    const querySnapshot = await getDocs(q);
+    let data = [];
+    querySnapshot.forEach((doc) => {
+      const prevRecord = doc.data().grid;
+      data = [...data, ...prevRecord]
+    });
+
+    return data;
   }
 
   return {
@@ -134,6 +158,7 @@ export const useContact = () => {
     handleDelete,
     allMessages,
     SetData,
-    getGGG
+    getGridData,
+    saveGridData
   };
 };

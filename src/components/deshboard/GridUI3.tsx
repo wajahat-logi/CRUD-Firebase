@@ -1,3 +1,4 @@
+
 import {
   CardHeader,
   Input,
@@ -29,7 +30,7 @@ import {
   randomId
 } from '@mui/x-data-grid-generator';
 import * as React from 'react';
-import { GRID_KEYS } from '../utils/constants';
+import { dp_customer, dp_kamOwner, dp_pstAssign, dp_region, dp_sector, dp_status, GRID_KEYS } from '../utils/constants';
 import {
   MagnifyingGlassIcon,
   UserPlusIcon,
@@ -68,8 +69,8 @@ function EditToolbar(props: EditToolbarProps) {
   );
 }
 
-export default function GridUI3({ addMemberHandler, gridData, handleDelete }) {
-  const [rows, setRows] = React.useState(gridData);
+export default function GridUI3({ addMemberHandler, rows, setRows, handleDelete }) {
+  // const [rows, setRows1] = React.useState(gridData);
   const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
 
   const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
@@ -112,25 +113,15 @@ export default function GridUI3({ addMemberHandler, gridData, handleDelete }) {
     setRowModesModel(newRowModesModel);
   };
 
+
+  const makeDate = (date) => {
+    if (date?.seconds) {
+      return date.toDate();
+    }
+    return date;
+  }
+
   const columns: GridColDef[] = [
-    { editable: true, field: 'sn', headerName: 'S/N', width: 70 },
-    { editable: true, field: 'dateReceived', headerName: 'Date Received', width: 130 },
-    { editable: true, field: 'dueDateByKAM', headerName: 'Due Date by KAM /Customer', width: 130 },
-    { editable: true, field: 'projectLevel', headerName: 'Project Level', width: 130 },
-    { editable: true, field: 'tat', headerName: 'TAT', width: 130 },
-    { editable: true, field: 'projectLWC', headerName: 'Project Life (Work Days)', width: 130 },
-    { editable: true, field: 'status', headerName: 'Status/Dependencies', width: 130 },
-    { editable: true, field: 'customer', headerName: 'Customer', width: 130 },
-    { editable: true, field: 'region', headerName: 'Region', width: 130 },
-    { editable: true, field: 'kamOwner', headerName: 'KAM/ Owner', width: 130 },
-    { editable: true, field: 'sector', headerName: 'Sector', width: 130 },
-    { editable: true, field: 'pstAssign', headerName: 'Pre-Sales task Assigned to', width: 130 },
-    { editable: true, field: 'requirement', headerName: 'Requirement / Query', width: 130 },
-    { editable: true, field: 'psrUpdates', headerName: 'Pre-Sales Remarks / Updates', width: 130 },
-    { editable: true, field: 'proposedSolution', headerName: 'Proposed Solution', width: 130 },
-    { editable: true, field: 'srdiother', headerName: 'Sale/ Rental/ Demo/ In-House/ Other', width: 130 },
-    { editable: true, field: 'submissionTo', headerName: 'Submission to KAM/ Owner', width: 130 },
-    { editable: true, field: 'additionR', headerName: 'Additional Remarks', width: 130 },
     {
       field: 'actions',
       type: 'actions',
@@ -177,6 +168,31 @@ export default function GridUI3({ addMemberHandler, gridData, handleDelete }) {
         ];
       },
     },
+    { editable: true, field: 'sn', headerName: 'S/N', width: 70 },
+    {
+      editable: true, valueGetter: makeDate, type: 'date', field: 'dateReceived', headerName: 'Date Received', width: 130
+    },
+    {
+      editable: true, valueGetter: makeDate, type: 'date', field: 'dueDateByKAM', headerName: 'Due Date by KAM /Customer', width: 130
+    },
+    {
+      editable: true, valueGetter: makeDate, type: 'date', field: 'projectLevel', headerName: 'Project Level', width: 130
+    },
+    { editable: true, field: 'tat', headerName: 'TAT', width: 130 },
+    { editable: true, field: 'projectLWC', headerName: 'Project Life (Work Days)', width: 130 },
+    { editable: true, type: 'singleSelect', valueOptions: dp_status, field: 'status', headerName: 'Status/Dependencies', width: 130 },
+    { editable: true,type: 'singleSelect', valueOptions: dp_customer, field: 'customer', headerName: 'Customer', width: 130 },
+    { editable: true,type: 'singleSelect', valueOptions: dp_region, field: 'region', headerName: 'Region', width: 130 },
+    { editable: true, type: 'singleSelect', valueOptions: dp_kamOwner, field: 'kamOwner', headerName: 'KAM/ Owner', width: 130 },
+    { editable: true, type: 'singleSelect', valueOptions: dp_sector, field: 'sector', headerName: 'Sector', width: 130 },
+    { editable: true, type: 'singleSelect', valueOptions: dp_pstAssign, field: 'pstAssign', headerName: 'Pre-Sales task Assigned to', width: 130 },
+    { editable: true, field: 'requirement', headerName: 'Requirement / Query', width: 130 },
+    { editable: true, field: 'psrUpdates', headerName: 'Pre-Sales Remarks / Updates', width: 130 },
+    { editable: true, field: 'proposedSolution', headerName: 'Proposed Solution', width: 130 },
+    { editable: true, field: 'srdiother', headerName: 'Sale/ Rental/ Demo/ In-House/ Other', width: 130 },
+    { editable: true,  valueGetter: makeDate, type: 'date', field: 'submissionTo', headerName: 'Submission to KAM/ Owner', width: 130 },
+    { editable: true, field: 'additionR', headerName: 'Additional Remarks', width: 130 },
+
   ];
 
   return (
@@ -193,21 +209,21 @@ export default function GridUI3({ addMemberHandler, gridData, handleDelete }) {
         },
       }}
     >
-        <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
-          <div>
-            <Typography variant="h5" color="blue-gray">
-              Members list
-            </Typography>
-            <Typography color="gray" className="mt-1 font-normal">
-              These are details about the last members
-            </Typography>
-          </div>
-          <div className="flex w-full shrink-0 gap-2 md:w-max">
-            <Button onClick={addMemberHandler} className="flex items-center gap-3" size="sm">
-              <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
-            </Button>
-          </div>
+      <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
+        <div>
+          <Typography variant="h5" color="blue-gray">
+            Members list
+          </Typography>
+          <Typography color="gray" className="mt-1 font-normal">
+            These are details about the last members
+          </Typography>
         </div>
+        <div className="flex w-full shrink-0 gap-2 md:w-max">
+          <Button onClick={addMemberHandler} className="flex items-center gap-3" size={"sm"}>
+            <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
+          </Button>
+        </div>
+      </div>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -226,3 +242,5 @@ export default function GridUI3({ addMemberHandler, gridData, handleDelete }) {
     </Box>
   );
 }
+
+

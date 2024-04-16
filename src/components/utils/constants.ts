@@ -122,3 +122,10 @@ export const TABLE_ROWS = [
         additionR: 0,
     }
 ];
+
+export const dp_status = ['In Progress','End Progress', 'Parked with'];
+export const dp_customer = [];
+export const dp_region = ['Central','North','South','East','West'];
+export const dp_kamOwner = [];
+export const dp_sector = ['Enterprise', 'Security','B2G'];
+export const dp_pstAssign = [];
