@@ -90,14 +90,13 @@ export const useContact = () => {
     }
   };
 
-  console.log('allMessages22', allMessages)
 
   const SetData = (data) => {
     try {
 
       setMessages(p => ([...p, data])); // obtained
     } catch (error) {
-      console.error(error);
+      console.error(errosr);
     }
   };
 

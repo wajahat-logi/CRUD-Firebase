@@ -125,7 +125,46 @@ export const TABLE_ROWS = [
 
 export const dp_status = ['In Progress','End Progress', 'Parked with'];
 export const dp_customer = [];
-export const dp_region = ['Central','North','South','East','West'];
+export const dp_region = ['Central','North','South'];
 export const dp_kamOwner = [];
 export const dp_sector = ['Enterprise', 'Security','B2G'];
 export const dp_pstAssign = [];
+
+
+export const dp_TPYRWChartData = [
+    { data: [],label: 'South' },
+    { data: [],label: 'North' },
+    { data: [],label: 'Central' },
+  ]
+
+
+  
+  export const dp_TQRRWChartData = [
+    {
+      data: [
+        { id: 0, value: 0, label: 'South' },
+        { id: 1, value: 0, label: 'North' },
+        { id: 2, value: 0, label: 'Central' },
+      ],
+    },
+  ]
+
+
+  export const dp_MVWSChartData = [ { data: [] }]
+  export const dp_TVSChartData = [ { data: [] }]
+  export const dp_MAPYWSChartData = [ { data: [] }]
+  export const dp_MRWSChartData =  [
+    {
+      value: 0,
+      direction: 'Central',
+    },
+    {
+      value: 0,
+      direction: 'North',
+    },
+    {
+      value: 0,
+      direction: 'South',
+    },
+  ];
+

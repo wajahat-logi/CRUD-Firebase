@@ -12,15 +12,21 @@ import {
     PopoverContent,
 } from "@material-tailwind/react";
 import TextUI, { AddTextUI } from './TextUI';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 
 
 const DatePickerUI = ({ date, label = '', ...rest }) => {
     return (
         <>
+        
             <AddTextUI label={label} />
-            <Popover placement="bottom">
-                <PopoverHandler>
+            {/* <Popover placement="bottom"> */}
+            <DatePicker label="Select a Date"
+                onChange={() => null}
+                // value={date ? format(date, "PPP") : ""}
+                {...rest} />
+            {/* <PopoverHandler>
                     <Input
                         label="Select a Date"
                         onChange={() => null}
@@ -68,8 +74,8 @@ const DatePickerUI = ({ date, label = '', ...rest }) => {
                         }}
                         {...rest}
                     />
-                </PopoverContent>
-            </Popover>
+                </PopoverContent> */}
+            {/* </Popover> */}
         </>
     );
 }

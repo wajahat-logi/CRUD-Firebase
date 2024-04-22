@@ -21,6 +21,11 @@ export default function RootLayout({ children }) {
           <AuthUserProvider>
             <ToastContainer />
             <NavbarUI />
+            {/* <div className='absolute w-[10%] bg-[#fff] top-20 hidden sm:block'>
+        <div className='flex flex-col gap-y-6 fixed z-20' >
+            Hello
+            </div>
+            </div> */}
             {children}
           </AuthUserProvider>
       </body>

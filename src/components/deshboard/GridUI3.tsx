@@ -181,8 +181,8 @@ export default function GridUI3({ addMemberHandler, rows, setRows, handleDelete 
     { editable: true, field: 'tat', headerName: 'TAT', width: 130 },
     { editable: true, field: 'projectLWC', headerName: 'Project Life (Work Days)', width: 130 },
     { editable: true, type: 'singleSelect', valueOptions: dp_status, field: 'status', headerName: 'Status/Dependencies', width: 130 },
-    { editable: true,type: 'singleSelect', valueOptions: dp_customer, field: 'customer', headerName: 'Customer', width: 130 },
-    { editable: true,type: 'singleSelect', valueOptions: dp_region, field: 'region', headerName: 'Region', width: 130 },
+    { editable: true, type: 'singleSelect', valueOptions: dp_customer, field: 'customer', headerName: 'Customer', width: 130 },
+    { editable: true, type: 'singleSelect', valueOptions: dp_region, field: 'region', headerName: 'Region', width: 130 },
     { editable: true, type: 'singleSelect', valueOptions: dp_kamOwner, field: 'kamOwner', headerName: 'KAM/ Owner', width: 130 },
     { editable: true, type: 'singleSelect', valueOptions: dp_sector, field: 'sector', headerName: 'Sector', width: 130 },
     { editable: true, type: 'singleSelect', valueOptions: dp_pstAssign, field: 'pstAssign', headerName: 'Pre-Sales task Assigned to', width: 130 },
@@ -190,24 +190,26 @@ export default function GridUI3({ addMemberHandler, rows, setRows, handleDelete 
     { editable: true, field: 'psrUpdates', headerName: 'Pre-Sales Remarks / Updates', width: 130 },
     { editable: true, field: 'proposedSolution', headerName: 'Proposed Solution', width: 130 },
     { editable: true, field: 'srdiother', headerName: 'Sale/ Rental/ Demo/ In-House/ Other', width: 130 },
-    { editable: true,  valueGetter: makeDate, type: 'date', field: 'submissionTo', headerName: 'Submission to KAM/ Owner', width: 130 },
+    { editable: true, valueGetter: makeDate, type: 'date', field: 'submissionTo', headerName: 'Submission to KAM/ Owner', width: 130 },
     { editable: true, field: 'additionR', headerName: 'Additional Remarks', width: 130 },
 
   ];
 
+  const boxClasses = {
+
+    margin: '10px 0px 0px 0px',
+    width: '100%',
+    '& .actions': {
+      color: 'text.secondary',
+    },
+    '& .textPrimary': {
+      color: 'text.primary',
+    },
+  };
+
   return (
     <Box
-      sx={{
-        height: 500,
-        margin: '10px 0px 0px 0px',
-        width: '100%',
-        '& .actions': {
-          color: 'text.secondary',
-        },
-        '& .textPrimary': {
-          color: 'text.primary',
-        },
-      }}
+      sx={boxClasses}
     >
       <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
         <div>
@@ -224,21 +226,24 @@ export default function GridUI3({ addMemberHandler, rows, setRows, handleDelete 
           </Button>
         </div>
       </div>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        editMode="row"
-        rowModesModel={rowModesModel}
-        onRowModesModelChange={handleRowModesModelChange}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
-        slots={{
-          toolbar: EditToolbar as GridSlots['toolbar'],
-        }}
-        slotProps={{
-          toolbar: { setRows, setRowModesModel },
-        }}
-      />
+      <div className={{ height: 500 }}>
+        <DataGrid
+          rows={rows}
+          autoHeight={true}
+          columns={columns}
+          editMode="row"
+          rowModesModel={rowModesModel}
+          onRowModesModelChange={handleRowModesModelChange}
+          onRowEditStop={handleRowEditStop}
+          processRowUpdate={processRowUpdate}
+          slots={{
+            toolbar: EditToolbar as GridSlots['toolbar'],
+          }}
+          slotProps={{
+            toolbar: { setRows, setRowModesModel },
+          }}
+        />
+      </div>
     </Box>
   );
 }
